@@ -5,17 +5,20 @@ using UnityEngine;
 public class AddForceAtPosition : MonoBehaviour
 {
     private Rigidbody _rb;
+
+
+    [SerializeField]
+    Transform _controllerPos;
+
+    [SerializeField]
+    Transform _forceOrigin;
+
     [SerializeField]
     private float _speed;
 
     [SerializeField]
     Transform _throttleNeutral;
 
-    //[SerializeField]
-    //Vector3 _forceDirection;
-
-    [SerializeField]
-    Transform _forcePos;
     [SerializeField]
     private Transform _camOffset;
 
@@ -27,8 +30,8 @@ public class AddForceAtPosition : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float throttle = (_forcePos.localPosition.x + _camOffset.localPosition.x) - _throttleNeutral.localPosition.x;
+        float throttle = (_controllerPos.localPosition.x + _camOffset.localPosition.x) - _throttleNeutral.localPosition.x;
         Debug.Log(throttle);
-        _rb.AddForceAtPosition(transform.right * throttle *_speed, _forcePos.position);
+        _rb.AddForceAtPosition(transform.right * throttle *_speed, _forceOrigin.position);
     }
 }
