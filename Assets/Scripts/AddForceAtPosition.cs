@@ -31,7 +31,7 @@ public class AddForceAtPosition : MonoBehaviour
     void FixedUpdate()
     {
         float throttle = (_controllerPos.localPosition.x + _camOffset.localPosition.x) - _throttleNeutral.localPosition.x;
-        Debug.Log(throttle);
+        //Debug.Log(throttle);
         _rb.AddForceAtPosition(transform.right * throttle *_speed, _forceOrigin.position);
     }
 }

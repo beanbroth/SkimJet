@@ -19,14 +19,15 @@ public class FloorTreadmillController : MonoBehaviour
     [SerializeField]
     List<List<Transform>> _floorTiles = new List<List<Transform>>();
 
-
-
     [SerializeField]
     float _floorLength;
     [SerializeField]
     Transform _centerTile;
     [SerializeField]
     Vector2Int _centerTileIndex;
+
+    public float FloorLength { get => _floorLength; }
+    public Vector2Int CenterTileIndex { get => _centerTileIndex; }
 
     void Start()
     {
@@ -45,10 +46,13 @@ public class FloorTreadmillController : MonoBehaviour
 
     //Transform[][] _floorTiles;
 
-    //if(_player.position.x > _centerTile.position.x + _floorLength/2)
+    //if(_player.position.x > _centerTile.position.x + __floorLength/2)
     //
 
-
+    int mod(int x, int m)
+    {
+        return (x % m + m) % m;
+    }
 
 
     List<Transform> GetRow(int row)
@@ -62,60 +66,61 @@ public class FloorTreadmillController : MonoBehaviour
     }
     void Update()
     {
+        //_sanitizedTileIndex = new Vector2Int(__centerTileIndex.x % 3, __centerTileIndex.y %3 );
+
+
         if (_player.position.x > _centerTile.position.x + _floorLength / 2)
         {
-
             Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = _centerTileIndex.x % 3 == 0 ? _floorTiles[2] : _floorTiles[(_centerTileIndex.x - 1) % 3];
+            List<Transform> backFloorTileRow = _floorTiles[mod(_centerTileIndex.x - 1, 3)];
             for (int i = 0; i < 3; i++)
             {
                 backFloorTileRow[i].position = new Vector3(_centerTile.position.x + _floorLength * 2, backFloorTileRow[i].position.y, backFloorTileRow[i].position.z);
             }
 
-            _centerTileIndex.x = (_centerTileIndex.x + 1) % 3;
-            _centerTile = _floorTiles[_centerTileIndex.x][_centerTileIndex.y];
+            _centerTileIndex.x += 1;
+            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
         }
 
         if (_player.position.x < _centerTile.position.x - _floorLength / 2)
         {
             Debug.Log("Moving first tile into last position");
-            List<Transform> frontFloorTileRow = _floorTiles[(_centerTileIndex.x + 1) % 3];
+            List<Transform> frontFloorTileRow = _floorTiles[mod(_centerTileIndex.x + 1, 3)];
             for (int i = 0; i < 3; i++)
             {
                 frontFloorTileRow[i].position = new Vector3(_centerTile.position.x - _floorLength * 2, frontFloorTileRow[i].position.y, frontFloorTileRow[i].position.z);
             }
 
 
-            _centerTileIndex.x = _centerTileIndex.x % 3 == 0 ? 2 : _centerTileIndex.x - 1 % 3;
-            _centerTile = _floorTiles[_centerTileIndex.x][_centerTileIndex.y];
+            _centerTileIndex.x -= 1;
+            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
         }
 
         if (_player.position.z > _centerTile.position.z + _floorLength / 2)
         {
             Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = _centerTileIndex.y % 3 == 0 ? GetRow(2) : GetRow((_centerTileIndex.y - 1) % 3);
+            List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y - 1, 3));
             for (int i = 0; i < 3; i++)
             {
                 backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z + _floorLength * 2);
             }
 
-            _centerTileIndex.y = (_centerTileIndex.y + 1) % 3;
-            _centerTile = _floorTiles[_centerTileIndex.x][_centerTileIndex.y];
+            _centerTileIndex.y += 1;
+            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
         }
 
         if (_player.position.z < _centerTile.position.z - _floorLength / 2)
         {
             Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = GetRow((_centerTileIndex.y + 1) % 3);
+            List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y + 1, 3));
             for (int i = 0; i < 3; i++)
             {
                 backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z - _floorLength * 2);
             }
 
-            _centerTileIndex.y = _centerTileIndex.y % 3 == 0 ? 2 : (_centerTileIndex.y - 1) % 3;
-            _centerTile = _floorTiles[_centerTileIndex.x][_centerTileIndex.y];
+            _centerTileIndex.y -= 1;
+            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
         }
-
 
 
 
