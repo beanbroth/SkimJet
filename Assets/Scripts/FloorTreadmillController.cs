@@ -7,6 +7,8 @@ public class FloorTreadmillController : MonoBehaviour
     [SerializeField]
     Transform _player;
 
+    [SerializeField] ObjectTileManager _otm;
+
     [SerializeField]
     List<Transform> _column1 = new List<Transform>();
     [SerializeField]
@@ -71,58 +73,79 @@ public class FloorTreadmillController : MonoBehaviour
 
         if (_player.position.x > _centerTile.position.x + _floorLength / 2)
         {
-            Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = _floorTiles[mod(_centerTileIndex.x - 1, 3)];
-            for (int i = 0; i < 3; i++)
-            {
-                backFloorTileRow[i].position = new Vector3(_centerTile.position.x + _floorLength * 2, backFloorTileRow[i].position.y, backFloorTileRow[i].position.z);
-            }
-
-            _centerTileIndex.x += 1;
-            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+            MoveGridPostiveX();
+            _otm.MoveObjectGridPostiveX();
         }
 
         if (_player.position.x < _centerTile.position.x - _floorLength / 2)
         {
-            Debug.Log("Moving first tile into last position");
-            List<Transform> frontFloorTileRow = _floorTiles[mod(_centerTileIndex.x + 1, 3)];
-            for (int i = 0; i < 3; i++)
-            {
-                frontFloorTileRow[i].position = new Vector3(_centerTile.position.x - _floorLength * 2, frontFloorTileRow[i].position.y, frontFloorTileRow[i].position.z);
-            }
-
-
-            _centerTileIndex.x -= 1;
-            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+            MoveGridNegativeX();
+            _otm.MoveObjectGridNegativeX();
         }
 
         if (_player.position.z > _centerTile.position.z + _floorLength / 2)
         {
-            Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y - 1, 3));
-            for (int i = 0; i < 3; i++)
-            {
-                backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z + _floorLength * 2);
-            }
-
-            _centerTileIndex.y += 1;
-            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+            MoveGridPositiveZ();
+            _otm.MoveObjectGridPostiveY();
         }
 
         if (_player.position.z < _centerTile.position.z - _floorLength / 2)
         {
-            Debug.Log("Moving last tile into first position");
-            List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y + 1, 3));
-            for (int i = 0; i < 3; i++)
-            {
-                backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z - _floorLength * 2);
-            }
+            MoveGridNegativeZ();
+            _otm.MoveObjectGridNegativeY();
+        }
+    }
 
-            _centerTileIndex.y -= 1;
-            _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+    private void MoveGridNegativeZ()
+    {
+        Debug.Log("Moving last tile into first position");
+        List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y + 1, 3));
+        for (int i = 0; i < 3; i++)
+        {
+            backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z - _floorLength * 2);
+        }
+
+        _centerTileIndex.y -= 1;
+        _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+    }
+
+    private void MoveGridPositiveZ()
+    {
+        Debug.Log("Moving last tile into first position");
+        List<Transform> backFloorTileRow = GetRow(mod(_centerTileIndex.y - 1, 3));
+        for (int i = 0; i < 3; i++)
+        {
+            backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _centerTile.position.z + _floorLength * 2);
+        }
+
+        _centerTileIndex.y += 1;
+        _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+    }
+
+    private void MoveGridNegativeX()
+    {
+        Debug.Log("Moving first tile into last position");
+        List<Transform> frontFloorTileRow = _floorTiles[mod(_centerTileIndex.x + 1, 3)];
+        for (int i = 0; i < 3; i++)
+        {
+            frontFloorTileRow[i].position = new Vector3(_centerTile.position.x - _floorLength * 2, frontFloorTileRow[i].position.y, frontFloorTileRow[i].position.z);
         }
 
 
+        _centerTileIndex.x -= 1;
+        _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
+    }
 
+    private void MoveGridPostiveX()
+    {
+        Debug.Log("Moving last tile into first position");
+        List<Transform> backFloorTileRow = _floorTiles[mod(_centerTileIndex.x - 1, 3)];
+        for (int i = 0; i < 3; i++)
+        {
+            backFloorTileRow[i].position = new Vector3(_centerTile.position.x + _floorLength * 2, backFloorTileRow[i].position.y, backFloorTileRow[i].position.z);
+        }
+
+        _centerTileIndex.x += 1;
+        _centerTile = _floorTiles[mod(_centerTileIndex.x, 3)][mod(_centerTileIndex.y, 3)];
     }
 }
