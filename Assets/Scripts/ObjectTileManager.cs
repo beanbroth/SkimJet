@@ -24,18 +24,18 @@ public class ObjectTileManager : MonoBehaviour
     }
     public void MoveObjectGridPostiveX()
     {
-        List<Transform> backFloorTileRow = GetColumn(mod(_ftc.CenterTileIndex.x - tileLoadSize/2, tileLoadSize));
+        List<Transform> backFloorTileRow = GetColumn(mod(_ftc.CenterTileIndex.x - tileLoadSize/2-7, tileLoadSize));
         for (int i = 0; i < tileLoadSize; i++)
         {
             _otp.UnloadObjets(backFloorTileRow[i]);
-            backFloorTileRow[i].position = new Vector3(_ftc.CenterTileIndex.x  * _ftc.FloorLength + _ftc.FloorLength, backFloorTileRow[i].position.y, backFloorTileRow[i].position.z);
+            backFloorTileRow[i].position = new Vector3((_ftc.CenterTileIndex.x + 2)  * _ftc.FloorLength + _ftc.FloorLength, backFloorTileRow[i].position.y, backFloorTileRow[i].position.z);
             _otp.LoadObjects(backFloorTileRow[i]);
         }
     }
 
     public void MoveObjectGridNegativeX()
     {
-        List<Transform> backFloorTileRow = GetColumn(mod(_ftc.CenterTileIndex.x + tileLoadSize/2 + 2, tileLoadSize));
+        List<Transform> backFloorTileRow = GetColumn(mod(_ftc.CenterTileIndex.x + tileLoadSize/2 +4, tileLoadSize));
         for (int i = 0; i < tileLoadSize; i++)
         {
             _otp.UnloadObjets(backFloorTileRow[i]);
@@ -45,18 +45,18 @@ public class ObjectTileManager : MonoBehaviour
     }
     public void MoveObjectGridPostiveY()
     {
-        List<Transform> backFloorTileRow = GetRow(mod(_ftc.CenterTileIndex.y - tileLoadSize / 2, tileLoadSize));
+        List<Transform> backFloorTileRow = GetRow(mod(_ftc.CenterTileIndex.y - tileLoadSize / 2-7, tileLoadSize));
         for (int i = 0; i < tileLoadSize; i++)
         {
             _otp.UnloadObjets(backFloorTileRow[i]);
-            backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, _ftc.CenterTileIndex.y * _ftc.FloorLength + _ftc.FloorLength);
+            backFloorTileRow[i].position = new Vector3(backFloorTileRow[i].position.x, backFloorTileRow[i].position.y, (_ftc.CenterTileIndex.y +2) * _ftc.FloorLength + _ftc.FloorLength);
             _otp.LoadObjects(backFloorTileRow[i]);
         }
     }
 
     public void MoveObjectGridNegativeY()
     {
-        List<Transform> backFloorTileRow = GetRow(mod(_ftc.CenterTileIndex.y + tileLoadSize / 2 + 2, tileLoadSize));
+        List<Transform> backFloorTileRow = GetRow(mod(_ftc.CenterTileIndex.y + tileLoadSize / 2 + 4, tileLoadSize));
         for (int i = 0; i < tileLoadSize; i++)
         {
             _otp.UnloadObjets(backFloorTileRow[i]);
@@ -83,7 +83,11 @@ public class ObjectTileManager : MonoBehaviour
         {
             for (int j = 0; j < tileLoadSize; j++)
             {
-                _otp.LoadObjects(GetTranformByIndex(i, j));
+                if (!(i == tileLoadSize/2 && j == tileLoadSize / 2)) //skip center
+                {
+                    _otp.LoadObjects(GetTranformByIndex(i, j));
+                }
+
             }
         }
     }

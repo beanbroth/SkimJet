@@ -16,11 +16,17 @@ public class AddForceAtPosition : MonoBehaviour
     [SerializeField]
     private float _speed;
 
+    [SerializeField] float _rawMaxThrottle;
+    [SerializeField] float _rawMinThrottle;
+    [SerializeField] float _throttlePercent;
+
     [SerializeField]
     Transform _throttleNeutral;
 
     [SerializeField]
     private Transform _camOffset;
+
+    public float ThrottlePercent { get => _throttlePercent; }
 
     void Start()
     {
@@ -31,7 +37,10 @@ public class AddForceAtPosition : MonoBehaviour
     void FixedUpdate()
     {
         float throttle = (_controllerPos.localPosition.x + _camOffset.localPosition.x) - _throttleNeutral.localPosition.x;
-        //Debug.Log(throttle);
-        _rb.AddForceAtPosition(transform.right * throttle *_speed, _forceOrigin.position);
+        _throttlePercent = (throttle + _rawMinThrottle) / (_rawMaxThrottle + _rawMinThrottle);
+        Debug.Log(ThrottlePercent);
+
+
+        _rb.AddForceAtPosition(transform.right * throttle * _speed, _forceOrigin.position);
     }
 }
