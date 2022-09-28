@@ -6116,10 +6116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7241a3e106230140bd9d59ff2d17ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioFileObjects: []
-  audioFileMusicObjects: []
-  sceneSoundEnumName: Sounds
-  sceneMusicEnumName: Music
+  audioFileObjects:
+  - {fileID: 11400000, guid: 8b94210fb31fe534c9729f7f3baf2156, type: 2}
+  - {fileID: 11400000, guid: f301853b39557fc4ab2eeb26668b8340, type: 2}
+  audioFileMusicObjects:
+  - {fileID: 11400000, guid: e0684e7d69b27c3408e5cca3e3ec4999, type: 2}
+  sceneSoundEnumName: JSAM.Sounds
+  sceneMusicEnumName: JSAM.Music
   masterVolume: 1
   masterMuted: 0
   soundVolume: 1
@@ -6637,7 +6640,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357001462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a14615999dfdb634795f1c298c9da938, type: 3}
   m_Name: 
@@ -6645,6 +6648,9 @@ MonoBehaviour:
   _controllerPos: {fileID: 1960959421}
   _forceOrigin: {fileID: 1156157042}
   _speed: 2000
+  _rawMaxThrottle: 0.8
+  _rawMinThrottle: -0.2
+  _throttlePercent: 0
   _throttleNeutral: {fileID: 590228040}
   _camOffset: {fileID: 742433150}
 --- !u!114 &1357001464
@@ -6654,7 +6660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357001462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a14615999dfdb634795f1c298c9da938, type: 3}
   m_Name: 
@@ -6662,6 +6668,9 @@ MonoBehaviour:
   _controllerPos: {fileID: 661435863}
   _forceOrigin: {fileID: 1390333426}
   _speed: 2000
+  _rawMaxThrottle: 0.8
+  _rawMinThrottle: -0.2
+  _throttlePercent: 0
   _throttleNeutral: {fileID: 590228040}
   _camOffset: {fileID: 742433150}
 --- !u!54 &1357001465
@@ -6716,7 +6725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576a807ebc904c54b98ccc5a7ed8ee26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeedLossPerFixedStepWhenPerpendicular: 0.03
+  _maxSpeedLossPerFixedStepWhenPerpendicular: 0.003
   _maxVel: 40
   _rb: {fileID: 1357001465}
 --- !u!1 &1390333425
@@ -6795,7 +6804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pooledObjectPrefab: {fileID: 100000, guid: 19e3bec5d2084834e86823c680ab9eb1, type: 3}
-  _numPooledObjects: 300
+  _numPooledObjects: 500
 --- !u!1 &1519592539
 GameObject:
   m_ObjectHideFlags: 0
@@ -7224,7 +7233,74 @@ MonoBehaviour:
   _prefabBoundsSize: {x: 25, y: 50, z: 25}
   _minScaleMult: {x: 1, y: 1, z: 1}
   _maxScaleMult: {x: 2, y: 3, z: 2}
-  _noiseScale: 3
+  _maxRotDegrees: {x: 30, y: 30, z: 30}
+  _rotDegreesCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: -1
+      inSlope: 9.684847
+      outSlope: 9.684847
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.11349249
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.005686148
+      outSlope: -0.005686148
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.79094607
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 20.095894
+      outSlope: 20.095894
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.049003482
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _noiseScale: 1
+  _tileWeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.14995998
+      outSlope: 0.14995998
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.75247157
+    - serializedVersion: 3
+      time: 0.4983577
+      value: 0.4983577
+      inSlope: 0.047157887
+      outSlope: 0.047157887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12211653
+      outWeight: 0.4601067
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.2682279
+      outSlope: 0.2682279
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.94688994
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1661488256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7813,6 +7889,11 @@ PrefabInstance:
       propertyPath: moveWithCustomTransform
       value: 
       objectReference: {fileID: 1357001466}
+    - target: {fileID: 7426039601877839770, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0,
+        type: 3}
+      propertyPath: _afa
+      value: 
+      objectReference: {fileID: 1357001464}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0, type: 3}
 --- !u!1 &1945185597
@@ -8231,7 +8312,7 @@ PrefabInstance:
     - target: {fileID: 2261912431517385108, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2657633338225758668, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0,
         type: 3}
@@ -8243,6 +8324,11 @@ PrefabInstance:
       propertyPath: moveWithCustomTransform
       value: 
       objectReference: {fileID: 1357001466}
+    - target: {fileID: 7426039601877839770, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0,
+        type: 3}
+      propertyPath: _afa
+      value: 
+      objectReference: {fileID: 1357001463}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3779ab8dc8b00ab40bb6c8ef0152ecc0, type: 3}
 --- !u!4 &2103079106 stripped

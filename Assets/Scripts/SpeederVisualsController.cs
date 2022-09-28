@@ -8,8 +8,10 @@ public class SpeederVisualsController : MonoBehaviour
     [SerializeField]
     PhysicsSpecialPhysicsPropertiesController _psp;
 
-    [SerializeField] float maxAngle;
+    [SerializeField] float maxHorizontalRotation;
     [SerializeField] AnimationCurve maxSpeedPercentEffectMult;
+
+    [SerializeField] float maxVerticalTilt;
 
 
     void Start()
@@ -20,7 +22,7 @@ public class SpeederVisualsController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Quaternion rotation = Quaternion.Euler(new Vector3(_psp.AnglePercent * maxSpeedPercentEffectMult.Evaluate(_psp.VelPercent) * maxAngle, 0, 0));
+        Quaternion rotation = Quaternion.Euler(new Vector3(_psp.AnglePercent * maxSpeedPercentEffectMult.Evaluate(_psp.VelPercent) * maxHorizontalRotation, 0,_psp.VelPercent * maxVerticalTilt));
 
         transform.localRotation = rotation;
     }

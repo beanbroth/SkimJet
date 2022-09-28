@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JSAM;
 
 public class PhysicsSpecialPhysicsPropertiesController : MonoBehaviour
 {
     [SerializeField] float _maxSpeedLossPerFixedStepWhenPerpendicular;
     [SerializeField] float _maxVel;
+
+    AudioSource windFlaps;
+    AudioSource wind;
+
+    [SerializeField] AnimationCurve audioRamp;
 
     float anglePercent;
     float velPercent;
@@ -17,7 +23,9 @@ public class PhysicsSpecialPhysicsPropertiesController : MonoBehaviour
 
     void Start()
     {
-
+        AudioManager.PlayMusic(Music.BackgroundMusic);
+        windFlaps = AudioManager.PlaySoundLoop(Sounds.WindFlaps);
+        wind = AudioManager.PlaySoundLoop(Sounds.ConstantWind); 
     }
 
     // Update is called once per frame
@@ -30,4 +38,11 @@ public class PhysicsSpecialPhysicsPropertiesController : MonoBehaviour
         _rb.velocity *= 1f - _maxSpeedLossPerFixedStepWhenPerpendicular * Mathf.Abs(anglePercent);
 
     }
+    private void Update()
+    {
+
+        windFlaps.volume = audioRamp.Evaluate(velPercent);
+        wind.volume = audioRamp.Evaluate(velPercent);
+    }
+
 }

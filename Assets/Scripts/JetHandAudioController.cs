@@ -14,14 +14,14 @@ public class JetHandAudioController : MonoBehaviour
     void Start()
     {
         engine = AudioManager.PlaySoundLoop(Sounds.RocketEngine, transform);
-        whine = AudioManager.PlaySoundLoop(Sounds.RocketWhine,transform);
+        //whine = AudioManager.PlaySoundLoop(Sounds.RocketWhine,transform);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        whine.pitch = 0.8f + _afa.ThrottlePercent*0.2f;
+        //whine.pitch = 0.8f + _afa.ThrottlePercent*0.2f;
         engine.volume = 1 + _afa.ThrottlePercent;
 
     }

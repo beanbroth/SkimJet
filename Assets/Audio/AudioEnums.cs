@@ -1,8 +1,11 @@
 namespace JSAM {
     public enum Sounds {
+        ConstantWind,
         RocketEngine,
-        RocketWhine
+        RocketWhine,
+        WindFlaps
     }
     public enum Music {
+        BackgroundMusic
     }
 }
